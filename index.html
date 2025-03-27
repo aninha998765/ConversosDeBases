@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Bases</title>
+    <style>
+
+        /* Importando a fonte Poppins */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;  
+            text-align: center;
+            margin: 0;  
+            padding: 0;  
+            background: linear-gradient(135deg, #4CAF50, #1B5E20); 
+            color: white; 
+            display: flex;  
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh;  
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.2); 
+            padding: 40px;  
+            border-radius: 20px;  
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);  
+            width: 380px;  
+            animation: fadeIn 1s ease-in-out; 
+        }
+
+        /* Animação para o efeito de fade-in */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); } 
+            to { opacity: 1; transform: translateY(0); }  
+        }
+
+        h2 {
+            font-weight: 600; 
+            margin-bottom: 20px;  
+            color: #E8F5E9;  
+        }
+
+        input, select, button {
+            width: 100%;  
+            margin: 12px; 
+            padding: 14px; 
+            font-size: 16px;  
+            border-radius: 10px; 
+            border: none;  
+            outline: none;  
+            transition: 0.3s; 
+        }
+
+        input {
+            background: white;  
+            border: 2px solid #A5D6A7; 
+        }
+
+        select {
+            background: #E8F5E9; 
+            border: 2px solid #A5D6A7;  
+        }
+
+        button {
+            background: #66BB6A; 
+            color: white;  
+            font-weight: bold;  
+            cursor: pointer;  
+            transition: 0.3s; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+        }
+
+        button:hover {
+            background: #388E3C;  
+            transform: scale(1.05);  /* aumenta um pouco o tamanho do botão */
+        }
+
+        .resultado {
+            margin-top: 20px;  
+            font-size: 20px;  
+            font-weight: bold; 
+            color: #C8E6C9;  
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Conversor de Bases Numéricas</h2>
+        <input type="text" id="input_value" placeholder="Digite o número">
+        
+        <h3>Defina a Base dele:</h3>
+        <!-- Select para escolher a base do número -->
+        <select id="select_base">
+            <option value="bin">Binário</option>
+            <option value="oct">Octal</option>
+            <option value="dec">Decimal</option>
+            <option value="hex">Hexadecimal</option>
+        </select>
+        
+        <h3>Para qual Base:</h3>
+        <!-- Select para escolher para qual base converter -->
+        <select id="select_paraBase">
+            <option value="bin">Binário</option>
+            <option value="oct">Octal</option>
+            <option value="dec">Decimal</option>
+            <option value="hex">Hexadecimal</option>
+        </select>
+        
+        <button onclick="converter()">Converter</button>
+        
+        <!-- exibe o resultado -->
+        <p class="resultado">Resultado: <span id="resultado"></span></p>
+    </div>
+
+    <script>
+        function converter() {
+            var value = input_value.value;  
+            var base = select_base.value;   
+            var paraBase = select_paraBase.value;  
+            document.getElementById("resultado").textContent = convertNumber(value, base, paraBase);  // exibe o resultado da conversão
+        }
+
+        // função para realizar a conversão entre bases
+        function convertNumber(value, base, paraBase) {
+            let decimalValue;
+            
+            // Convertendo o valor para decimal dependendo da base de entrada
+            if (base === 'bin') {
+                decimalValue = parseInt(value, 2);
+            } else if (base === 'oct') {
+                decimalValue = parseInt(value, 8);
+            } else if (base === 'dec') {
+                decimalValue = parseInt(value, 10);
+            } else if (base === 'hex') {
+                decimalValue = parseInt(value, 16);
+            } else {
+                return 'Base inválida';  // se a base de entrada for inválida
+            }
+            
+            // convertendo o valor decimal para a base de saída
+            if (paraBase === 'bin') {
+                return decimalValue.toString(2);  // retorna em binário
+            } else if (paraBase === 'oct') {
+                return decimalValue.toString(8);  // retorna em octal
+            } else if (paraBase === 'dec') {
+                return decimalValue.toString(10);  // retorna em decimal
+            } else if (paraBase === 'hex') {
+                return decimalValue.toString(16);  // retorna em hexadecimal
+            } else {
+                return 'Base inválida';  // se a base de saída for inválida
+            }
+        }
+    </script>
+</body>
+</html>
